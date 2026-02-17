@@ -75,22 +75,24 @@ map.addControl(
 );
 
 map.on('load', () => {
+    const base = import.meta.env.BASE_URL;
+
     // Add GeoJSON sources
     map.addSource('border_arunachal_bhutan', {
         type: 'geojson',
-        data: '/border_villages_ArunachalBhutan.geojson'
+        data: `${base}border_villages_ArunachalBhutan.geojson`
     });
     map.addSource('border_others', {
         type: 'geojson',
-        data: '/border_villages_others.geojson'
+        data: `${base}border_villages_others.geojson`
     });
     map.addSource('inside_arunachal', {
         type: 'geojson',
-        data: '/inside_Arunachal.geojson'
+        data: `${base}inside_Arunachal.geojson`
     });
     map.addSource('inside_bhutan', {
         type: 'geojson',
-        data: '/inside_bhutan.geojson'
+        data: `${base}inside_bhutan.geojson`
     });
 
     // Add layers with different colors
