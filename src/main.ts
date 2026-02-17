@@ -143,4 +143,52 @@ map.on('load', () => {
             'circle-stroke-color': '#fff'
         }
     });
+
+    // Popup for all point layers
+    const layers = [
+        'border_arunachal_bhutan_layer',
+        'border_others_layer',
+        'inside_arunachal_layer',
+        'inside_bhutan_layer'
+    ];
+
+    layers.forEach(layerId => {
+        map.on('click', layerId, (e) => {
+            if (!e.features || e.features.length === 0) return;
+
+            const feature = e.features[0];
+            const props = feature.properties || {};
+            const coords = (feature.geometry as GeoJSON.Point).coordinates.slice() as [number, number];
+
+            let html = '<div style="max-width: 250px;">';
+            if (props.Villages) {
+                html += `<strong>${props.Villages}</strong><br>`;
+            }
+            if (props.Chinese_name) {
+                html += `Chinese: ${props.Chinese_name}<br>`;
+            }
+            if (props.Altitude) {
+                html += `Altitude: ${props.Altitude}m<br>`;
+            }
+            if (props.Single_village__village_clusters) {
+                html += `Type: ${props.Single_village__village_clusters}<br>`;
+            }
+            html += `Lat: ${props.Latitude?.toFixed(4) || coords[1].toFixed(4)}<br>`;
+            html += `Lng: ${props.Longitude?.toFixed(4) || coords[0].toFixed(4)}`;
+            html += '</div>';
+
+            new maplibregl.Popup()
+                .setLngLat(coords)
+                .setHTML(html)
+                .addTo(map);
+        });
+
+        map.on('mouseenter', layerId, () => {
+            map.getCanvas().style.cursor = 'pointer';
+        });
+
+        map.on('mouseleave', layerId, () => {
+            map.getCanvas().style.cursor = '';
+        });
+    });
 });
