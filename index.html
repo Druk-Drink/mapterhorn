@@ -7,6 +7,30 @@
   </head>
   <body>
     <div id="map"></div>
+    <div class="legend" id="legend">
+      <div class="legend-header" onclick="document.getElementById('legend').classList.toggle('collapsed')">
+        <span class="legend-title">Legend</span>
+        <span class="legend-toggle">▼</span>
+      </div>
+      <div class="legend-content">
+        <div class="legend-item">
+          <span class="legend-color" style="background: #e74c3c;"></span>
+          <span class="legend-label">Border Villages (Arunachal-Bhutan)</span>
+        </div>
+        <div class="legend-item">
+          <span class="legend-color" style="background: #f39c12;"></span>
+          <span class="legend-label">Border Villages (Others)</span>
+        </div>
+        <div class="legend-item">
+          <span class="legend-color" style="background: #3498db;"></span>
+          <span class="legend-label">Inside Arunachal</span>
+        </div>
+        <div class="legend-item">
+          <span class="legend-color" style="background: #2ecc71;"></span>
+          <span class="legend-label">Inside Bhutan</span>
+        </div>
+      </div>
+    </div>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
