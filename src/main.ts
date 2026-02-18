@@ -95,6 +95,31 @@ map.on('load', () => {
         data: `${base}inside_bhutan.geojson`
     });
 
+    // Add video source
+    map.addSource('video', {
+        type: 'video',
+        urls: [
+            'https://static-assets.mapbox.com/mapbox-gl-js/drone.mp4',
+            'https://static-assets.mapbox.com/mapbox-gl-js/drone.webm'
+        ],
+        coordinates: [
+            [90.25, 28.65],  // top-left
+            [90.75, 28.65],  // top-right
+            [90.75, 28.35],  // bottom-right
+            [90.25, 28.35]   // bottom-left
+        ]
+    });
+
+    // Add video layer
+    map.addLayer({
+        id: 'video_layer',
+        type: 'raster',
+        source: 'video',
+        paint: {
+            'raster-opacity': 0.8
+        }
+    });
+
     // Add layers with different colors
     map.addLayer({
         id: 'border_arunachal_bhutan_layer',
@@ -191,4 +216,26 @@ map.on('load', () => {
             map.getCanvas().style.cursor = '';
         });
     });
+
+    // Video playback control
+    const videoSource = map.getSource('video') as maplibregl.VideoSource;
+    const videoControl = document.getElementById('videoControl');
+    const videoIcon = document.getElementById('videoIcon');
+    let isPlaying = false;
+
+    if (videoControl && videoIcon && videoSource) {
+        const video = videoSource.getVideo();
+        video.loop = true;
+
+        videoControl.addEventListener('click', () => {
+            if (isPlaying) {
+                video.pause();
+                videoIcon.textContent = '▶';
+            } else {
+                video.play();
+                videoIcon.textContent = '⏸';
+            }
+            isPlaying = !isPlaying;
+        });
+    }
 });

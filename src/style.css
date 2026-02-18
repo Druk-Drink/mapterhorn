@@ -86,3 +86,28 @@ html, body {
 .legend-label {
   color: #444;
 }
+
+.video-control {
+  position: absolute;
+  bottom: 30px;
+  right: 10px;
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  font-size: 16px;
+  z-index: 1;
+  transition: all 0.2s ease;
+}
+
+.video-control:hover {
+  background: #f0f0f0;
+  transform: scale(1.05);
+}
+
+.video-control:active {
+  transform: scale(0.95);
+}
